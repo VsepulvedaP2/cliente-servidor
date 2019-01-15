@@ -10,6 +10,7 @@ class Client:
         self.port = 10001
         self.address = (self.host, self.port)
         self.initial = True
+        self.key = "pass"
 
     def connect(self):
         while self.initial:
@@ -21,8 +22,25 @@ class Client:
                 print(e)
         print("connected")
 
+    def authentication(self):
+        print("authentication..")
+        self.s.sendall(self.key.encode())
+        self.firstAnswer = self.s.recv(8192).decode()
+        print(self.firstAnswer)
+
     def run(self):
         self.connect()
+        self.authentication()
+        self.handler(self.firstAnswer)
+
+    def handler(self, door):
+        if door == "open":
+            self.door = True
+        else:
+            print("no access")
+        while self.door:
+            print("test door")
+            break
 
 
 if __name__ == "__main__":
