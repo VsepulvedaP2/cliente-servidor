@@ -3,7 +3,7 @@ import os
 import subprocess
 
 
-class client:
+class Client:
     def __init__(self):
         self.s = socket.socket(family=socket.AF_INET, type=socket.SOCK_STREAM)
         self.host = "localhost"
